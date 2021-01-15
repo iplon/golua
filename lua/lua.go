@@ -6,15 +6,19 @@
 package lua
 
 /*
-#cgo !lua52,!lua53,!lua54 CFLAGS: -I ${SRCDIR}/lua51
-#cgo lua52 CFLAGS: -I ${SRCDIR}/lua52
-#cgo lua53 CFLAGS: -I ${SRCDIR}/lua53
-#cgo lua54 CFLAGS: -I ${SRCDIR}/lua54
-#cgo llua LDFLAGS: -llua
+#cgo !onelua,!lua52,!lua53,!lua54 CFLAGS: -I ${SRCDIR}/lua51
+#cgo !onelua,lua52 CFLAGS: -I ${SRCDIR}/lua52
+#cgo !onelua,lua53 CFLAGS: -I ${SRCDIR}/lua53
+#cgo !onelua,lua54 CFLAGS: -I ${SRCDIR}/lua54
+#cgo !onelua,llua LDFLAGS: -llua
 
-#cgo luaa LDFLAGS: -llua -lm -ldl
+#cgo onelua CFLAGS: -DMAKE_LIB -DONELUA -I ${SRCDIR}/onelua
+
+#cgo luaa LDFLAGS: -llua -lm
 #cgo luajit LDFLAGS: -lluajit-5.1
 #cgo lluadash5.1 LDFLAGS: -llua-5.1
+#cgo onelua,!windows LDFLAGS: -lm -ldl
+#cgo onelua,windows LDFLAGS: -L${SRCDIR} -lmingwex -lmingw32
 
 #cgo !onelua,linux,!lua52,!lua53,!lua54,!llua,!luaa,!luajit,!lluadash5.1 LDFLAGS: -llua5.1
 #cgo !onelua,linux,lua52,!llua,!luaa,!luajit,!lluadash5.1 LDFLAGS: -llua5.2
@@ -41,6 +45,10 @@ package lua
 
 #include "golua.h"
 
+#ifdef lua_newuserdata
+#undef lua_newuserdata
+#endif
+LUA_API void *lua_newuserdata (lua_State *L, size_t size);
 */
 import "C"
 import (

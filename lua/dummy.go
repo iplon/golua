@@ -18,4 +18,5 @@ import (
 	_ "github.com/iplon/golua/lua/lua52"
 	_ "github.com/iplon/golua/lua/lua53"
 	_ "github.com/iplon/golua/lua/lua54"
+	_ "github.com/iplon/golua/lua/onelua"
 )
